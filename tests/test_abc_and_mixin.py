@@ -1,22 +1,24 @@
 import pytest
 
-from src.ecommerce import BaseProduct, LawnGrass, Product, Smartphone
+from src.ecommerce import BaseProduct, Product, Smartphone, LawnGrass
 
 
 def test_base_product_is_abstract() -> None:
     with pytest.raises(TypeError):
-        BaseProduct("A", "D", 10, 1)  # type: ignore[abstract]
+        BaseProduct()
 
 
-def test_mixin_prints_creation_info_for_product(capsys) -> None:
-    product = Product("Продукт1", "Описание продукта", 1200, 10)
+def test_creation_mixin_prints_for_product(capsys) -> None:
+    product = Product("Test", "Desc", 100, 5)
 
     captured = capsys.readouterr()
-    assert captured.out.strip() == "Product('Продукт1', 'Описание продукта', 1200, 10)"
-    assert product.name == "Продукт1"
+    assert captured.out.strip() == "Product('Test', 'Desc', 100, 5)"
+
+    assert product.name == "Test"
+    assert product.quantity == 5
 
 
-def test_mixin_prints_creation_info_for_subclass(capsys) -> None:
+def test_creation_mixin_prints_for_smartphone(capsys) -> None:
     phone = Smartphone(
         name="Phone",
         description="Desc",
@@ -30,14 +32,17 @@ def test_mixin_prints_creation_info_for_subclass(capsys) -> None:
 
     captured = capsys.readouterr()
     assert captured.out.strip() == "Smartphone('Phone', 'Desc', 1000, 2)"
+
     assert phone.model == "X"
+    assert phone.memory == 128
 
 
-def test_add_only_same_class_allowed() -> None:
+def test_add_same_class_products() -> None:
     p1 = Product("A", "D", 100, 10)
     p2 = Product("B", "D", 200, 2)
 
-    assert p1 + p2 == 1400
+    result = p1 + p2
+    assert result == 1400
 
 
 def test_add_different_classes_raises_type_error() -> None:
@@ -51,6 +56,7 @@ def test_add_different_classes_raises_type_error() -> None:
         memory=128,
         color="Black",
     )
+
     grass = LawnGrass(
         name="Grass",
         description="d",
