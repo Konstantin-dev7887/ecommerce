@@ -55,7 +55,9 @@ class Product(CreationMixin, BaseProduct):
             print("Price should be more then 0")
 
     def __str__(self) -> str:
-        return f"{self.name}, {int(self.price)} руб. Остаток: {self.quantity} шт."
+        return (f"{self.name}, "
+                f"{int(self.price)} руб. "
+                f"Остаток: {self.quantity} шт.")
 
     def __add__(self, other: object) -> float:
         if type(self) is not type(other):
