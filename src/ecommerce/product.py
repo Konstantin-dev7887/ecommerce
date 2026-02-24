@@ -3,23 +3,53 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 
-@dataclass(frozen=True, slots=True)
+@dataclass(slots=True)
 class Product:
     name: str
     description: str
-    price: float
     quantity: int
+    _price: float
 
-    def __post_init__(self) -> None:
-        if not isinstance(self.name, str) or not self.name.strip():
+    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+        if not isinstance(name, str) or not name.strip():
             raise ValueError("Product.name must be a non-empty string")
-        if not isinstance(self.description, str):
+
+        if not isinstance(description, str):
             raise TypeError("Product.description must be a string")
-        if not isinstance(self.price, (int, float)):
+
+        if not isinstance(price, (int, float)):
             raise TypeError("Product.price must be a number")
-        if float(self.price) < 0:
-            raise ValueError("Product.price must be >= 0")
-        if not isinstance(self.quantity, int):
+
+        if price <= 0:
+            raise ValueError("Product.price must be > 0")
+
+        if not isinstance(quantity, int):
             raise TypeError("Product.quantity must be an int")
-        if self.quantity < 0:
+
+        if quantity < 0:
             raise ValueError("Product.quantity must be >= 0")
+
+        self.name = name
+        self.description = description
+        self._price = float(price)
+        self.quantity = quantity
+
+    @property
+    def price(self) -> float:
+        return self._price
+
+    @price.setter
+    def price(self, new_price: float) -> None:
+        if new_price > 0:
+            self._price = float(new_price)
+        else:
+            print("Цена не должна быть нулевая или отрицательная")
+
+    @classmethod
+    def new_product(cls, product_data: dict) -> "Product":
+        return cls(
+            name=product_data["name"],
+            description=product_data["description"],
+            price=product_data["price"],
+            quantity=product_data["quantity"],
+        )

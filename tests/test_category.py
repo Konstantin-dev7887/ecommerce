@@ -32,7 +32,13 @@ def test_category_initialization_success_with_products() -> None:
 
     assert category.name == "Electronics"
     assert category.description == "Devices"
-    assert category.products == [product_1, product_2]
+
+    expected = (
+        "Phone, 499 руб. Остаток: 5 шт.\n"
+        "Tablet, 299 руб. Остаток: 2 шт.\n"
+    )
+
+    assert category.products == expected
 
 
 def test_category_initialization_success_empty_products() -> None:
@@ -44,7 +50,7 @@ def test_category_initialization_success_empty_products() -> None:
 
     assert category.name == "Books"
     assert category.description == "All kinds of books"
-    assert category.products == []
+    assert category.products == ""
 
 
 def test_category_empty_name_raises() -> None:
