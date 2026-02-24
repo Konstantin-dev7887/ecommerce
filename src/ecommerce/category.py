@@ -7,7 +7,9 @@ class Category:
     category_count: int = 0
     product_count: int = 0
 
-    def __init__(self, name: str, description: str, products: List[Product]) -> None:
+    def __init__(self, name: str,
+                 description: str,
+                 products: List[Product]) -> None:
         if not isinstance(name, str) or not name.strip():
             raise ValueError("Category.name must be a non-empty string")
 
@@ -19,7 +21,8 @@ class Category:
 
         for product in products:
             if not isinstance(product, Product):
-                raise TypeError("Category.products must contain only Product objects")
+                raise TypeError(
+                    "Category.products must contain only Product objects")
 
         self.name = name
         self.description = description

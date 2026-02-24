@@ -10,7 +10,10 @@ class Product:
     quantity: int
     _price: float
 
-    def __init__(self, name: str, description: str, price: float, quantity: int) -> None:
+    def __init__(self, name: str,
+                 description: str,
+                 price: float,
+                 quantity: int) -> None:
         if not isinstance(name, str) or not name.strip():
             raise ValueError("Product.name must be a non-empty string")
 
