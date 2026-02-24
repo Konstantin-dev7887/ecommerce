@@ -100,6 +100,8 @@ def test_category_str_counts_total_quantity() -> None:
     p1 = Product(name="Phone", description="d", price=10, quantity=5)
     p2 = Product(name="Tablet", description="d", price=20, quantity=2)
 
-    category = Category(name="Electronics", description="Devices", products=[p1, p2])
+    category = Category(name="Electronics",
+                        description="Devices",
+                        products=[p1, p2])
 
     assert str(category) == "Electronics, количество продуктов: 7 шт."
