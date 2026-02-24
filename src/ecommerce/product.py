@@ -46,7 +46,7 @@ class Product:
         if new_price > 0:
             self._price = float(new_price)
         else:
-            print("Цена не должна быть нулевая или отрицательная")
+            print("Price only more then 0")
 
     @classmethod
     def new_product(cls, product_data: dict) -> "Product":
@@ -63,6 +63,7 @@ class Product:
                 f"Остаток: {self.quantity} шт.")
 
     def __add__(self, other: object) -> float:
-        if not isinstance(other, Product):
-            return NotImplemented
+        if type(other) is not type(self):
+            raise TypeError("Only equals classes")
+
         return (self.price * self.quantity) + (other.price * other.quantity)
