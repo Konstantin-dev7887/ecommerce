@@ -40,6 +40,13 @@ class Category:
         self._products.append(product)
         Category.product_count += 1
 
+    def middle_price(self) -> float:
+        try:
+            total = sum(product.price for product in self._products)
+            return total / len(self._products)
+        except ZeroDivisionError:
+            return 0
+
     @property
     def products(self) -> str:
         return "".join(f"{str(product)}\n" for product in self._products)

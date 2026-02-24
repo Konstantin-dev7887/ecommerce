@@ -33,8 +33,9 @@ class Product(CreationMixin, BaseProduct):
         if not isinstance(quantity, int):
             raise TypeError("Product.quantity must be an int")
 
-        if quantity < 0:
-            raise ValueError("Product.quantity must be >= 0")
+        if quantity <= 0:
+            raise ValueError(
+                "Товар с нулевым количеством не может быть добавлен")
 
         self.name = name
         self.description = description
