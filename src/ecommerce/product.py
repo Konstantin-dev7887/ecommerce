@@ -56,3 +56,11 @@ class Product:
             price=product_data["price"],
             quantity=product_data["quantity"],
         )
+
+    def __str__(self) -> str:
+        return f"{self.name}, {int(self.price)} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other: object) -> float:
+        if not isinstance(other, Product):
+            return NotImplemented
+        return (self.price * self.quantity) + (other.price * other.quantity)

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import List
 
 from .product import Product
@@ -40,10 +42,8 @@ class Category:
 
     @property
     def products(self) -> str:
-        result = ""
-        for product in self._products:
-            result += (
-                f"{product.name}, {int(product.price)} руб. "
-                f"Остаток: {product.quantity} шт.\n"
-            )
-        return result
+        return "".join(f"{str(product)}\n" for product in self._products)
+
+    def __str__(self) -> str:
+        total_quantity = sum(product.quantity for product in self._products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
