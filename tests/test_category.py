@@ -1,7 +1,6 @@
 import pytest
 
-from src.ecommerce import Category
-from src.ecommerce import Product
+from src.ecommerce import Category, Product
 
 
 @pytest.fixture(autouse=True)
@@ -95,3 +94,12 @@ def test_product_count_increments_by_products_length() -> None:
 
     Category(name="C3", description="desc", products=[])
     assert Category.product_count == 3
+
+
+def test_category_str_counts_total_quantity() -> None:
+    p1 = Product(name="Phone", description="d", price=10, quantity=5)
+    p2 = Product(name="Tablet", description="d", price=20, quantity=2)
+
+    category = Category(name="Electronics", description="Devices", products=[p1, p2])
+
+    assert str(category) == "Electronics, количество продуктов: 7 шт."
