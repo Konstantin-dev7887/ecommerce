@@ -1,7 +1,7 @@
 import pytest
 
-from ecommerce_homework.src.ecommerce import Category
-from ecommerce_homework.src.ecommerce import Product
+from src.ecommerce import Category
+from src.ecommerce import Product
 
 
 @pytest.fixture(autouse=True)

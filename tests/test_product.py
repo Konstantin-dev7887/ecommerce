@@ -2,7 +2,7 @@ from decimal import Decimal
 
 import pytest
 
-from ecommerce_homework.src.ecommerce import Product
+from src.ecommerce import Product
 
 
 def test_product_initialization_success() -> None:
